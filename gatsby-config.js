@@ -1,3 +1,4 @@
+const fs = require('fs');
 require('dotenv').config();
 
 const path = require('path');
@@ -5,19 +6,40 @@ const path = require('path');
 const { PATH_PREFIX = '/' } = process.env;
 
 module.exports = {
-  pathPrefix: PATH_PREFIX,
   siteMetadata: {
-    title: 'IBM Design',
+    title: `MDXBook`,
+    description: `Get started on writing docs, quickly.`,
+    author: `@chrisdhanaraj`,
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-mdx`,
       options: {
-        trackingId: 'UA-00000000-0',
+        extensions: ['.mdx', '.md'],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1600,
+              linkImagesToOriginal: false,
+              backgroundColor: 'transparent',
+            },
+          },
+          { resolve: 'gatsby-remark-copy-linked-files' },
+          { resolve: 'gatsby-remark-smartypants' },
+        ],
       },
     },
-    `gatsby-plugin-sharp`,
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages/`,
+      },
+    },
+    `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -30,46 +52,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-offline',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'content',
-        path: `${__dirname}/src/content/`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          `gatsby-remark-smartypants`,
-          `gatsby-remark-responsive-iframe`,
-          `gatsby-remark-component`,
-          {
-            resolve: 'gatsby-remark-embed-video',
-            options: {
-              width: 1584, //1584 is 99rem, max grid width
-              ratio: 1.77, // Optional: Defaults to 16/9 = 1.77 57%   75%
-              related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
-              noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
-            },
-          },
-          `gatsby-remark-responsive-iframe`,
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              // It's important to specify the maxWidth (in pixels) of
-              // the content container as this plugin uses this as the
-              // base for generating different widths of each image.
-              maxWidth: 1600,
-              linkImagesToOriginal: false,
-              backgroundColor: 'transparent',
-            },
-          },
-          'gatsby-remark-copy-linked-files',
-        ],
-      },
-    },
-    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-sass',
       options: {

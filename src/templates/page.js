@@ -1,6 +1,5 @@
 import '../polyfills';
 import React from 'react';
-import rehypeReact from 'rehype-react';
 import Layout from '../components/Layouts';
 
 // Components
@@ -21,36 +20,16 @@ import {
   ol
 } from '../components/Markdown/Markdown';
 
-const renderAst = new rehypeReact({
-  createElement: React.createElement,
-  components: {
-    p: p,
-    h1: h1,
-    h2: h2,
-    h3: h3,
-    h4: h4,
-    h5: h5,
-    ul: ul,
-    ol: ol,
-    pre: Snippet,
-    table: PageTable,
-    'anchor-links': AnchorLinks,
-    'title-block': TitleBlock,
-    grid: Grid,
-    column: Column,
-  },
-}).Compiler;
-
 export default ({ data }) => {
-  const post = data.markdownRemark;
-  let currentPage = post.fields.currentPage;
-  let slug = post.fields.slug;
+  const page = data.allMdx;
+  let currentPage = page.fields.currentPage;
+  let slug = page.fields.slug;
 
   return (
     <Layout>
       {/*<h1>{post.frontmatter.title}</h1>*/}
       <main className="page-content" id="maincontent">
-        {renderAst(post.htmlAst)}
+        {page.html}
       </main>
       <BackToTop />
     </Layout>
@@ -58,15 +37,21 @@ export default ({ data }) => {
 };
 
 export const query = graphql`
-  query BlogPostQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      htmlAst
-      fields {
-        slug
-        currentPage
-      }
-      frontmatter {
-        title
+query($id: String!) {
+    allMdx {
+      edges {
+        node {
+          html
+          fields {
+            
+            slug
+            
+          }
+          rawBody
+          frontmatter {
+            title
+          }
+        }
       }
     }
   }
