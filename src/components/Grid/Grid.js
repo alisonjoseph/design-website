@@ -93,6 +93,7 @@ export class Column extends React.Component {
       offset_md,
       border,
       text_align,
+      bleed,
     } = this.props;
     let classNames = '';
     if (border) classNames += `ibm--col-border `;
@@ -102,6 +103,7 @@ export class Column extends React.Component {
     if (sm) classNames += `ibm--col-sm-${sm} `;
     if (offset_lg) classNames += `ibm--offset-lg-${offset_lg} `;
     if (offset_md) classNames += `ibm--offset-md-${offset_md} `;
+    if (bleed) classNames += `ibm--col-bleed `;
 
     return <div className={classNames}>{children}</div>;
   }

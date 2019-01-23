@@ -2,14 +2,20 @@
 title: Think
 ---
 
+<grid classname="background--nopadding">
 <column lg="16">
 
-[Impact Stories](/impact)
+<p><icon color="blue" name="ArrowLeft20" inline="true"></icon>  <a href="/Impact"><span>Impact Stories</span></a></p>
 
 </column>
+</grid>
+<grid classname="background--bleed">
+<column lg="16">
 
-<img alt="add alt" src="./images/Impact_1.png">
+![add alt](/images/Impact_1.png)
 
+</column>
+</grid>
 <grid background="gray-10">
 <column md="2" lg="4">
 
@@ -27,12 +33,12 @@ title: Think
 </grid>
 
 <grid background="gray-10">
-<column lg="12" offset_lg="4">
+<column lg="12" offset_lg="4" bleed="true">
 
 <img alt="Think on a pink background." src="images/Impact_2.png">
 
 </column>
-<column md="5" lg="8" offset_lg="4">
+<column md="5" lg="8" offset_lg="4" bleed="true">
 
 <img alt="Watson!" src="images/Impact_3.png">
 
