@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Fade from 'react-reveal/Fade';
@@ -86,6 +86,10 @@ export class Column extends React.Component {
      * Specify an image bleed
      */
     bleed: PropTypes.boolean,
+    /**
+     * Specify if item should fade
+     */
+    bleed: PropTypes.boolean,
   };
 
   render() {
@@ -99,6 +103,7 @@ export class Column extends React.Component {
       border,
       text_align,
       bleed,
+      fade,
     } = this.props;
     let classNames = '';
     if (border) classNames += `ibm--col-border `;
@@ -110,18 +115,16 @@ export class Column extends React.Component {
     if (offset_md) classNames += `ibm--offset-md-${offset_md} `;
     if (bleed) classNames += `ibm--col-bleed `;
 
-    const fadeEffect = false;
-
     return (
-      <Fragment>
-        {fadeEffect === true ? (
+      <>
+        {fade === 'true' ? (
           <Fade bottom cascade distance="25%">
             <div className={classNames}>{children}</div>
           </Fade>
         ) : (
           <div className={classNames}>{children}</div>
         )}
-      </Fragment>
+      </>
     );
   }
 }
