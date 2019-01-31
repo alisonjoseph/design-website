@@ -89,7 +89,7 @@ export class Column extends React.Component {
     /**
      * Specify if item should fade
      */
-    bleed: PropTypes.boolean,
+    fade: PropTypes.boolean,
   };
 
   render() {
